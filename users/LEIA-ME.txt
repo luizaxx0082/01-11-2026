@@ -1,0 +1,28 @@
+COMO ADICIONAR AS FOTOS DO MURAL DE MENSAGENS
+================================================
+
+Coloque as fotos de cada pessoa nesta pasta (/users) com estes nomes exatos:
+
+  users/eduarda.jpg
+  users/guilherme.jpg
+  users/vinicio.jpg
+  users/luciele.jpg
+  users/juliana.jpg
+  users/lays.jpg
+  users/ana-julia.jpg   -> foto da Aná Júlia
+  users/thamires.jpg
+
+Assim que o arquivo existir com o nome certo, a foto aparece
+automaticamente no site — não precisa mexer em nenhum código.
+Se a foto ainda não existir, o site mostra a inicial do nome
+no lugar (nada quebra).
+
+Dicas:
+- Use fotos quadradas (ex: 300x300px) para não cortar o rosto de forma estranha.
+- Formato .jpg funciona melhor pra web. Se alguma foto for .png ou .webp,
+  me avise o nome exato do arquivo que eu ajusto o código pra apontar certo.
+- Faltam as mensagens de cada pessoa (hoje só a da Eduarda está preenchida,
+  as outras 7 estão com texto de espaço reservado). Me manda o recado de
+  cada uma que eu troco.
+- Você mencionou 9 pessoas mas listou 8 nomes — se ficou alguém de fora,
+  me avisa o nome e a relação que eu adiciono o card.
