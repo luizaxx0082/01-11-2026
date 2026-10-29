@@ -1,0 +1,25 @@
+COMO ADICIONAR OS VÍDEOS-RECADO
+================================
+
+Coloque os arquivos nesta pasta (/videos) com estes nomes:
+
+  videos/video-01.mp4    -> o vídeo (vertical 9:16)
+  videos/video-01.webp   -> a capa/poster do vídeo (9:16)
+
+Para o 2º vídeo: video-02.mp4 e video-02.webp, e assim por diante.
+
+Depois, abra o arquivo  video-messages.js  (na raiz do projeto), preencha o
+nome de quem gravou e, se houver mais vídeos, copie o bloco { ... } para cada um.
+É só isso — não precisa mexer em HTML, CSS nem em outro JS.
+
+Recomendações (importante pro celular):
+- Vídeo: .mp4, codec H.264 + áudio AAC (toca em todo celular e navegador).
+- Proporção 9:16, ex.: 1080x1920 (ou 720x1280, mais leve).
+- Deixe o "moov atom" no início do arquivo (faststart) para começar a tocar
+  antes de baixar tudo. Com ffmpeg:
+    ffmpeg -i entrada.mp4 -c:v libx264 -crf 24 -preset slow -vf "scale=-2:1280" \
+           -c:a aac -b:a 128k -movflags +faststart videos/video-01.mp4
+- Poster: 720x1280, .webp (ou .jpg). Se o poster não existir, o site mostra um
+  fundo ameixa com uma estrela no lugar (nada quebra).
+- Se o vídeo ainda não existir, o card aparece normalmente e, ao tocar, o
+  visualizador mostra "Não foi possível carregar este vídeo".
