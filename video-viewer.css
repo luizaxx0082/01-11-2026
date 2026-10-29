@@ -1,0 +1,142 @@
+/* ==================================================================
+   Visualizador imersivo (.video-viewer) + player customizado (.vv-*)
+   Camadas do site: grain 5 · topbar 4 · progresso 40 · viewer 45 · cursor 50
+   ================================================================== */
+html.vv-lock,html.vv-lock body{overflow:hidden;overscroll-behavior:none}
+
+.video-viewer{
+  --vv-pad:16px;
+  --vv-pt:max(var(--vv-pad),env(safe-area-inset-top));
+  --vv-pr:max(var(--vv-pad),env(safe-area-inset-right));
+  --vv-pb:max(var(--vv-pad),env(safe-area-inset-bottom));
+  --vv-pl:max(var(--vv-pad),env(safe-area-inset-left));
+  position:fixed;inset:0;z-index:45;display:flex;align-items:center;justify-content:center;
+  padding:var(--vv-pt) var(--vv-pr) var(--vv-pb) var(--vv-pl);
+  color:var(--cream);
+  opacity:0;visibility:hidden;pointer-events:none;
+  overscroll-behavior:contain;touch-action:none;
+  transition:opacity .5s var(--ease),visibility 0s linear .5s
+}
+.video-viewer.is-open{opacity:1;visibility:visible;pointer-events:auto;transition-delay:0s}
+.video-viewer [hidden]{display:none!important}
+.video-viewer button{font:inherit;color:inherit;background:none;border:0;padding:0;margin:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.video-viewer :focus-visible{outline:1px solid var(--gold);outline-offset:3px}
+
+.vv-backdrop{
+  position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 42%,#3c1f31d9 0,#160c13f2 70%);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)
+}
+
+/* fechar: mesmo desenho do .finale-close */
+.vv-close{
+  position:absolute;z-index:3;top:max(14px,env(safe-area-inset-top));right:max(14px,env(safe-area-inset-right));
+  width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-size:19px;
+  border:1px solid #ffffff44!important;background:#0f091099!important;
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  transition:transform .2s,background .2s
+}
+@media (hover:hover) and (pointer:fine){.vv-close:hover{transform:rotate(90deg);background:#ffffff20!important}}
+
+/* ---------- moldura 9:16 real: a largura é limitada pela largura E pela altura disponíveis ---------- */
+.vv-player{
+  position:relative;z-index:1;flex:none;overflow:hidden;background:#0f0910;
+  width:min(100%,460px,calc((100vh - var(--vv-pt) - var(--vv-pb)) * 9 / 16));
+  aspect-ratio:9/16;
+  box-shadow:0 0 0 1px #d7ad7224,0 24px 60px #0007;
+  opacity:0;transform:translateY(26px) scale(.965);
+  transition:transform .7s var(--ease),opacity .5s var(--ease)
+}
+@supports (height:100dvh){
+  .vv-player{width:min(100%,460px,calc((100dvh - var(--vv-pt) - var(--vv-pb)) * 9 / 16))}
+}
+.video-viewer.is-open .vv-player{opacity:1;transform:none;transition-delay:.06s}
+@media(max-width:800px){.video-viewer{--vv-pad:0px}.vv-player{box-shadow:none}}
+
+.vv-player:fullscreen{width:100%;height:100%;max-width:none;aspect-ratio:auto;background:#000;box-shadow:none;opacity:1;transform:none}
+.vv-player:-webkit-full-screen{width:100%;height:100%;max-width:none;aspect-ratio:auto;background:#000;box-shadow:none;opacity:1;transform:none}
+.vv-player:fullscreen .vv-controls{padding-bottom:max(10px,env(safe-area-inset-bottom))}
+.vv-player:-webkit-full-screen .vv-controls{padding-bottom:max(10px,env(safe-area-inset-bottom))}
+
+/* object-fit:contain → o vídeo nunca é cortado nem distorcido */
+.vv-video{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain;background:#0f0910;cursor:pointer}
+
+/* ---------- identificação ---------- */
+.vv-meta{
+  position:absolute;left:0;right:0;top:0;padding:18px 68px 34px 18px;text-align:left;pointer-events:none;
+  background:linear-gradient(180deg,#0f0910bb 0,transparent 100%);
+  transition:opacity .4s var(--ease)
+}
+.vv-meta strong{display:block;font:500 16px 'Playfair Display',serif;color:var(--cream)}
+.vv-meta span{display:block;margin-top:3px;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#d8c4c6}
+.vv-meta strong:empty,.vv-meta span:empty{display:none}
+
+/* ---------- estados: carregando / erro ---------- */
+.vv-loading{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;opacity:0;transition:opacity .3s}
+.vv-loading i{width:34px;height:34px;border-radius:50%;border:1px solid #d7ad7255;border-top-color:var(--gold);animation:vvSpin 1s linear infinite}
+.vv-player.is-loading:not(.is-error) .vv-loading{opacity:1}
+@keyframes vvSpin{to{transform:rotate(360deg)}}
+
+.vv-error{
+  position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:32px;text-align:center;
+  background:#160c13f0;opacity:0;visibility:hidden;transition:opacity .3s,visibility 0s linear .3s
+}
+.vv-error p{margin:0;max-width:22ch;font:italic 500 18px/1.45 'Playfair Display',serif;color:#e7d9d9}
+.vv-retry{display:inline-flex;align-items:center;gap:10px;padding:8px 2px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
+.vv-player.is-error .vv-error{opacity:1;visibility:visible;transition-delay:0s}
+
+/* ---------- botão central ---------- */
+.vv-center{
+  position:absolute;left:50%;top:50%;z-index:1;width:68px;height:68px;margin:-34px 0 0 -34px;border-radius:50%;
+  display:grid;place-items:center;font-size:22px;
+  border:1px solid #d7ad72aa!important;background:#0f091066!important;
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  opacity:0;visibility:hidden;transition:opacity .35s var(--ease),visibility 0s linear .35s,transform .35s var(--ease)
+}
+.vv-center .ico{margin-left:2px}
+.vv-center .i-replay{display:none;margin-left:0}
+.vv-player.is-ended .vv-center .i-play{display:none}
+.vv-player.is-ended .vv-center .i-replay{display:inline-block}
+.vv-player:not(.is-playing):not(.is-error):not(.is-loading) .vv-center,
+.vv-player.is-ended .vv-center{opacity:1;visibility:visible;transition-delay:0s}
+@media (hover:hover) and (pointer:fine){.vv-center:hover{transform:scale(1.07)}}
+
+/* ---------- controles ---------- */
+.vv-controls{
+  position:absolute;left:0;right:0;bottom:0;z-index:1;padding:36px 14px 10px;
+  background:linear-gradient(0deg,#0f0910d9 0,transparent 100%);
+  transition:opacity .4s var(--ease)
+}
+.vv-player.is-ui-hidden.is-playing:not(:focus-within) .vv-controls,
+.vv-player.is-ui-hidden.is-playing:not(:focus-within) .vv-meta{opacity:0;pointer-events:none}
+
+.vv-progress{position:relative;height:28px;cursor:pointer;touch-action:none;outline-offset:0!important}
+.vv-progress::before,.vv-buffer,.vv-fill{content:'';position:absolute;left:0;right:0;top:50%;height:2px;margin-top:-1px;transform-origin:0 50%}
+.vv-progress::before{background:#ffffff33}
+.vv-buffer{background:#ffffff33;transform:scaleX(0)}
+.vv-fill{background:linear-gradient(90deg,var(--gold),var(--rose));transform:scaleX(0);transition:transform .25s linear}
+.vv-thumb{position:absolute;top:50%;left:0;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;background:var(--gold);transform:scale(0);transition:transform .2s var(--ease),left .25s linear}
+.vv-progress:focus-visible .vv-thumb,.vv-player.is-scrubbing .vv-thumb{transform:scale(1)}
+.vv-player.is-scrubbing .vv-fill,.vv-player.is-scrubbing .vv-thumb{transition:none}
+@media (hover:hover) and (pointer:fine){.vv-progress:hover .vv-thumb{transform:scale(1)}}
+
+.vv-row{display:flex;align-items:center;gap:4px}
+.vv-spacer{flex:1}
+.vv-time{margin-left:6px;font-size:11px;letter-spacing:.08em;font-variant-numeric:tabular-nums;color:#f5eee5cc}
+.vv-btn{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-size:19px;color:var(--cream);transition:background .2s}
+@media (hover:hover) and (pointer:fine){.vv-btn:hover{background:#ffffff14}}
+@media (pointer:coarse){.vv-btn{width:44px;height:44px}}
+
+.vv-toggle .i-pause,.vv-mute .i-off{display:none}
+.vv-player.is-playing .vv-toggle .i-play{display:none}
+.vv-player.is-playing .vv-toggle .i-pause{display:inline-block}
+.vv-player.is-muted .vv-mute .i-on{display:none}
+.vv-player.is-muted .vv-mute .i-off{display:inline-block}
+
+/* ---------- movimento reduzido ---------- */
+@media(prefers-reduced-motion:reduce){
+  .video-viewer,.vv-player,.vv-controls,.vv-meta,.vv-center,.vv-error,.vv-fill,.vv-thumb{transition-duration:.01ms!important;transition-delay:0s!important}
+  .vv-player{transform:none}
+  .vv-loading i{animation:none;border-color:var(--gold)}
+  .vv-close:hover{transform:none}
+}

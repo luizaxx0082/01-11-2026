@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#21131d" />
+  <title>Luiza — feliz aniversário</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="interactive.css" />
+  <link rel="stylesheet" href="scroll-effects.css" />
+  <link rel="stylesheet" href="birthday-art.css" />
+  <link rel="stylesheet" href="header-logo.css" />
+  <link rel="stylesheet" href="carousel-angle.css" />
+  <link rel="stylesheet" href="finale-screen.css" />
+  <link rel="stylesheet" href="pro-motion.css" />
+  <link rel="stylesheet" href="cinema-motion.css" />
+  <link rel="stylesheet" href="messages-wall.css" />
+  <link rel="stylesheet" href="video-surprises.css" />
+  <link rel="stylesheet" href="video-viewer.css" />
+  <link rel="stylesheet" href="refine.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/motion@11.13.5/dist/motion.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body>
+  <div class="grain"></div>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="Voltar ao início"><img src="luiza-logo.png" alt="Logo Luiza" /><span>Luiza</span></a>
+    <nav><a href="#carta">carta</a><a href="#mensagens">mensagens</a><a href="#momentos">momentos</a><a href="#brinde">brinde</a></nav>
+    <button class="sound" id="soundBtn" aria-label="Tocar áudio ambiente" aria-pressed="false"><span id="soundIcon"><i data-lucide="play" class="ico icon-play"></i><i data-lucide="pause" class="ico icon-pause"></i></span> <span id="soundText">tocar áudio</span></button>
+  </header>
+
+  <main id="top">
+    <section class="hero section-pad">
+      <div class="hero-copy reveal">
+        <p class="eyebrow"><span class="line"></span> hoje é dia de comemorar você</p>
+        <h1>Hoje é o seu dia,<br><em>Luiza.</em></h1>
+        <p class="lead">Pra Luiza, que sempre dá um jeito de deixar tudo mais leve — inclusive este site, que reescrevi um monte de vezes tentando achar as palavras certas. Aproveita seu dia do seu jeito, você merece.</p>
+        <div class="hero-actions"><a class="button primary" href="#carta">abrir sua carta <span><i data-lucide="arrow-up-right" class="ico"></i></span></a><button class="quiet" id="surpriseBtn">um pequeno mistério <span><i data-lucide="sparkle" class="ico"></i></span></button></div>
+      </div>
+      <div class="hero-visual reveal delay-1">
+        <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+        <div class="photo-frame"><img src="luiza-photo.jpg" alt="Retrato da Luiza" /><span class="photo-label">LUIZA <i>•</i> 2026</span></div>
+        <div class="floating-note"><span><i data-lucide="sparkles" class="ico"></i></span><strong>mais um<br><em>ano seu</em></strong></div>
+        <div class="stamp">happy<br><b>birthday</b></div>
+      </div>
+      <div class="scroll-hint"><span><i data-lucide="chevron-down" class="ico"></i></span> desce um pouco</div>
+    </section>
+
+    <section class="quote-band"><p>“Que a vida devolva pra você, em dobro, tudo de bom que você faz pelos outros.”</p><span>— recado da galera que gosta de você</span></section>
+
+    <section class="gallery-strip" aria-label="Momentos da Luiza">
+      <div class="strip-heading"><span>01 / um álbum em movimento</span><em>deslize o olhar <i data-lucide="arrow-right" class="ico"></i></em></div>
+      <div class="marquee"><div class="marquee-track">
+        <figure><img src="luiza-photo-001.jpg" alt="Momento especial da Luiza"><figcaption>luz própria</figcaption></figure>
+        <figure class="crop-top"><img src="luiza-photo-002.jpg" alt="Retrato da Luiza"><figcaption>dias bonitos</figcaption></figure>
+        <figure class="crop-bottom"><img src="luiza-photo-003.jpg" alt="Memória da Luiza"><figcaption>sempre você</figcaption></figure>
+        <figure class="crop-close"><img src="luiza-photo-004.jpg" alt="Sorriso da Luiza"><figcaption>um novo ano</figcaption></figure>
+        <figure><img src="luiza-photo-005.jpg" alt="Momento especial da Luiza"><figcaption>luz própria</figcaption></figure>
+        <figure class="crop-top"><img src="luiza-photo-006.jpg" alt="Retrato da Luiza"><figcaption>dias bonitos</figcaption></figure>
+        <figure><img src="luiza-photo-001.jpg" alt="Momento especial da Luiza"><figcaption>luz própria</figcaption></figure>
+        <figure class="crop-top"><img src="luiza-photo-002.jpg" alt="Retrato da Luiza"><figcaption>dias bonitos</figcaption></figure>
+        <figure class="crop-bottom"><img src="luiza-photo-003.jpg" alt="Memória da Luiza"><figcaption>sempre você</figcaption></figure>
+        <figure class="crop-close"><img src="luiza-photo-004.jpg" alt="Sorriso da Luiza"><figcaption>um novo ano</figcaption></figure>
+        <figure><img src="luiza-photo-005.jpg" alt="Momento especial da Luiza"><figcaption>luz própria</figcaption></figure>
+        <figure class="crop-top"><img src="luiza-photo-006.jpg" alt="Retrato da Luiza"><figcaption>dias bonitos</figcaption></figure>
+      </div></div>
+    </section>
+
+    <section class="letter section-pad" id="carta">
+      <div class="section-kicker">02 / uma carta, só sua</div>
+      <div class="letter-grid"><div><h2>Luiza,</h2><p class="big-copy">tem gente que chega e já deixa tudo mais <em>leve.</em></p></div><div class="letter-text"><p>Você é uma dessas pessoas que a gente não sabe explicar direito por que faz tanta diferença — só sabe que faz. Chega numa sala e o clima já muda. Hoje é um bom dia pra parar um minuto e perceber a pessoa incrível que você virou.</p><p>Que esse ano novo te dê coragem pros sonhos maiores e umas boas risadas nos dias corridos. E que você continue sendo exatamente assim, do seu jeito.</p><button class="text-link" id="letterBtn">ler uma última coisa <span><i data-lucide="arrow-right" class="ico"></i></span></button></div></div>
+      <div class="hidden-message" id="hiddenMessage"><span><i data-lucide="sparkle" class="ico"></i></span> Sério, você é muito mais querida do que imagina. Feliz aniversário, Luiza.</div>
+    </section>
+
+    <section class="birthday-art-section scroll-reveal" aria-label="Mensagem de aniversário para Luiza">
+      <div class="birthday-art-frame">
+        <img src="birthday-art.png" alt="Feliz aniversário, Luiza" />
+        <i data-lucide="sparkle" class="ico birthday-art-mark" aria-hidden="true"></i>
+      </div>
+    </section>
+
+    <section class="magic-note section-pad" id="magia">
+      <div class="magic-card">
+        <span class="magic-symbol"><i data-lucide="wand-2" class="ico"></i></span>
+        <p class="eyebrow">uma frase pra guardar</p>
+        <h2 id="magicText" data-text="Você é o tipo de pessoa que a gente sente falta antes mesmo de ir embora."></h2>
+        <button class="text-link magic-button" id="magicBtn">revelar de novo <span><i data-lucide="wand-2" class="ico"></i></span></button>
+      </div>
+    </section>
+
+    <section class="messages-wall section-pad" id="mensagens" aria-label="Mensagens de quem te ama">
+      <div class="section-kicker">03 / mensagens de quem te ama</div>
+      <div class="messages-head">
+        <h2>Recados para você<br><em>guardar com carinho.</em></h2>
+        <p>Um cantinho pra quem também quis deixar um recado.</p>
+      </div>
+      <div class="messages-grid">
+        <article class="message-card">
+          <div class="message-top">
+            <span class="message-avatar" data-fallback="E"><img src="users/eduarda.jpg" alt="Foto de Eduarda" loading="lazy" onerror="this.parentElement.textContent=this.parentElement.dataset.fallback"></span>
+            <div class="message-who"><strong>Eduarda</strong><span>amiga</span></div>
+          </div>
+          <p>Luiza, feliz aniversário! Sei que não falo muito, mas nossas conversas rápidas de um intervalo pro outro sempre foram um dos meus momentos favoritos do dia. Um dia ainda te faço um desenho à altura da nossa amizade. Espero que seu ano seja tão bom quanto você merece.</p>
+        </article>
+        <article class="message-card">
+          <div class="message-top">
+            <span class="message-avatar" data-fallback="G"><img src="users/guilherme.jpg" alt="Foto de Guilherme" loading="lazy" onerror="this.parentElement.textContent=this.parentElement.dataset.fallback"></span>
+            <div class="message-who"><strong>Guilherme</strong><span>amigo</span></div>
+          </div>
+          <p>Feliz níver, viu! A gente nem precisa fazer esforço pra se falar quase todo dia, né? Só acontece. Valeu por ser desse jeito fácil de ter por perto. Que seu ano seja tão tranquilo e engraçado quanto nossas conversas costumam ser. Abraço!</p>
+        </article>
+        <article class="message-card">
+          <div class="message-top">
+            <span class="message-avatar" data-fallback="V"><img src="users/vinicio.jpg" alt="Foto de Vinicio" loading="lazy" onerror="this.parentElement.textContent=this.parentElement.dataset.fallback"></span>
+            <div class="message-who"><strong>Vinicio</strong><span>amigo</span></div>
+          </div>
+          <p>Parabéns, Luiza! Confesso que não sou o cara mais solto pra puxar assunto, mas com você sempre foi tranquilo conversar. Espero que esse ano te traga tudo de bom, tipo final de anime satisfatório (vindo de mim, isso é elogio grande). Abraço!</p>
+        </article>
+        <article class="message-card">
+          <div class="message-top">
+            <span class="message-avatar" data-fallback="L"><img src="users/luciele.jpg" alt="Foto de Luciele" loading="lazy" onerror="this.parentElement.textContent=this.parentElement.dataset.fallback"></span>
+            <div class="message-who"><strong>Luciele</strong><span>amiga</span></div>
+          </div>
+          <p>Feliz aniversário, Luiza! De todo esse tempo te conhecendo, nossos vídeos bobos pra story, as partidas de UNO na escola e as saídas pra andar por aí viraram das minhas partes favoritas da rotina. Que esse ano seja tão animado quanto a gente costuma ser. Um beijo!</p>
+        </article>
+        <article class="message-card">
+          <div class="message-top">
+            <span class="message-avatar" data-fallback="J"><img src="users/juliana.jpg" alt="Foto de Juliana" loading="lazy" onerror="this.parentElement.textContent=this.parentElement.dataset.fallback"></span>
+            <div class="message-who"><strong>Juliana</strong><span>amiga</span></div>
+          </div>
+          <p>Luiza, feliz aniversário! Nossos dias sempre ficam mais divertidos com brincadeira boba, vídeo pra story e um UNO daqueles na escola. Você é companhia garantida pra qualquer plano, até pra andar a cavalo comigo por aí. Desejo um ano cheio de motivo pra rir. Beijo!</p>
+        </article>
+        <article class="message-card">
+          <div class="message-top">
+            <span class="message-avatar" data-fallback="L"><img src="users/lays.jpg" alt="Foto de Lays" loading="lazy" onerror="this.parentElement.textContent=this.parentElement.dataset.fallback"></span>
+            <div class="message-who"><strong>Lays</strong><span>amiga</span></div>
+          </div>
+          <p>Feliz aniversário, Luizinha! Não canso de agradecer por ter você na minha vida. Nossas conversas intermináveis e os planos malucos que a gente nunca cumpre são dos meus momentos favoritos. Te amo demais, comemora muito hoje!</p>
+        </article>
+        <article class="message-card">
+          <div class="message-top">
+            <span class="message-avatar" data-fallback="A"><img src="users/ana-julia.jpg" alt="Foto de Aná Júlia" loading="lazy" onerror="this.parentElement.textContent=this.parentElement.dataset.fallback"></span>
+            <div class="message-who"><strong>Aná Júlia</strong><span>amiga</span></div>
+          </div>
+          <p>Feliz aniversário, Luiza! Você chega em qualquer lugar e já muda o clima da sala, isso é meio injusto com o resto de nós, hehe. Sou grata por cada momento que já vivemos e por poder te chamar de amiga. Abraço apertado, com todo carinho do mundo!</p>
+        </article>
+        <article class="message-card">
+          <div class="message-top">
+            <span class="message-avatar" data-fallback="T"><img src="users/thamires.jpg" alt="Foto de Thamires" loading="lazy" onerror="this.parentElement.textContent=this.parentElement.dataset.fallback"></span>
+            <div class="message-who"><strong>Thamires</strong><span>prima</span></div>
+          </div>
+          <p>Feliz aniversário, priminha! A gente literalmente cresceu junto, e hoje ainda dorme na casa uma da outra tirando foto bagunçada até tarde. Tenho muito orgulho da pessoa que você é e adoro ter você não só como prima, mas como amiga de verdade. Que esse ano tenha muita aventura e boas histórias novas pra gente contar depois. Beijo grande!</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="video-surprises" id="video-surprises" aria-labelledby="vsTitle">
+      <div class="vs-head">
+        <p class="vs-whisper vs-r">Mas tem uma coisa que você talvez não espere…</p>
+        <span class="vs-thread" aria-hidden="true"></span>
+        <p class="section-kicker vs-kicker vs-r" style="--d:.6s">04 / uma surpresa</p>
+        <h2 id="vsTitle" class="vs-r" style="--d:.72s">Algumas pessoas também quiseram <em>fazer parte desse dia.</em></h2>
+        <p class="vs-sub vs-r" style="--d:.86s" data-vs-sub data-plural="Pequenas mensagens, especialmente para você.">Uma pequena mensagem, especialmente para você.</p>
+      </div>
+      <div class="vs-stage-wrap" id="vsStageWrap">
+        <div class="vs-deco" aria-hidden="true">
+          <span class="vs-orbit vs-orbit-a"></span><span class="vs-orbit vs-orbit-b"></span>
+          <span class="vs-spark vs-spark-1"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1c.6 5.6 5.4 10.4 11 11-5.6.6-10.4 5.4-11 11-.6-5.6-5.4-10.4-11-11C6.6 11.4 11.4 6.6 12 1z"/></svg></span>
+          <span class="vs-spark vs-spark-2"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1c.6 5.6 5.4 10.4 11 11-5.6.6-10.4 5.4-11 11-.6-5.6-5.4-10.4-11-11C6.6 11.4 11.4 6.6 12 1z"/></svg></span>
+          <span class="vs-spark vs-spark-3"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1c.6 5.6 5.4 10.4 11 11-5.6.6-10.4 5.4-11 11-.6-5.6-5.4-10.4-11-11C6.6 11.4 11.4 6.6 12 1z"/></svg></span>
+          <span class="vs-dot vs-dot-1"></span><span class="vs-dot vs-dot-2"></span>
+        </div>
+        <!-- os cards são gerados por video-surprises.js a partir de video-messages.js -->
+        <div class="vs-stage" id="vsStage" data-count="1"></div>
+      </div>
+    </section>
+
+    <section class="moments section-pad" id="momentos"><div class="section-kicker">05 / pequenos grandes momentos</div><div class="moments-head"><h2>O melhor ainda<br><em>está por vir.</em></h2><p>Uma coleção de desejos pra te acompanhar<br>nesse novo ano.</p></div><div class="cards"><article><span class="card-no">01</span><div class="card-icon"><i data-lucide="feather" class="ico"></i></div><h3>Leveza</h3><p>Pra respirar fundo nos dias corridos e não se cobrar tanto.</p></article><article class="dark-card"><span class="card-no">02</span><div class="card-icon"><i data-lucide="flame" class="ico"></i></div><h3>Coragem</h3><p>Pra escolher o que faz sentido pra você, mesmo dando medo.</p></article><article><span class="card-no">03</span><div class="card-icon"><i data-lucide="party-popper" class="ico"></i></div><h3>Surpresas</h3><p>Porque os melhores momentos raramente avisam antes de chegar.</p></article></div></section>
+
+    <section class="wish section-pad" id="brinde"><div class="wish-inner"><div class="sparkles"><i data-lucide="sparkle" class="ico"></i><i data-lucide="sparkles" class="ico"></i><i data-lucide="sparkle" class="ico"></i></div><p class="eyebrow">um brinde a você, Luiza</p><h2>Que seja incrível,<br><em>16 anos.</em></h2><button class="button primary toast-button" id="confettiBtn">abrir celebração <span><i data-lucide="party-popper" class="ico"></i></span></button><p class="small-note">clica aqui pra fechar com chave de ouro</p></div></section>
+  </main>
+  <footer><span>feito com carinho pra Luiza, pelos amigos dela</span><span><i data-lucide="sparkles" class="ico"></i> 2026</span></footer>
+  <audio id="birthdayAudio" src="audio.m4a" preload="metadata"></audio>
+  <div class="toast" id="toast">Pronto, seu desejo já foi pro universo <i data-lucide="sparkle" class="ico"></i></div>
+  <i data-lucide="sparkle" id="sparkTemplate" class="ico spark-template-hidden" aria-hidden="true"></i>
+  <div class="finale-screen" id="finaleScreen" aria-hidden="true">
+    <canvas class="finale-canvas" id="finaleCanvas" aria-hidden="true"></canvas>
+    <div class="finale-flash" id="finaleFlash" aria-hidden="true"></div>
+    <div class="finale-veil" aria-hidden="true"></div>
+    <button class="finale-close" id="finaleClose" aria-label="Fechar celebração"><i data-lucide="x" class="ico"></i></button>
+    <div class="finale-content">
+      <div class="finale-portal" aria-hidden="true"></div>
+      <div class="finale-stars"><span><i data-lucide="sparkle" class="ico"></i></span>　<span><i data-lucide="sparkles" class="ico"></i></span>　<span><i data-lucide="sparkle" class="ico"></i></span></div>
+      <p class="eyebrow">uma última coisa, antes de ir</p>
+      <h2 class="finale-title" id="finaleTitle"><span class="ft-line" data-split>Feliz aniversário,</span><br><em class="ft-line" data-split>Luiza.</em></h2>
+      <p class="finale-lead">Que esse ano novo seja tão bom quanto você é pra galera que tem a sorte de te conhecer.</p>
+      <div class="finale-cards">
+        <article><span class="finale-card-icon"><i data-lucide="laugh" class="ico"></i></span><strong>mais risadas</strong><p>daquelas que fazem a barriga doer.</p></article>
+        <article><span class="finale-card-icon"><i data-lucide="moon-star" class="ico"></i></span><strong>sonhos realizados</strong><p>inclusive os que você ainda nem contou.</p></article>
+        <article><span class="finale-card-icon"><i data-lucide="camera" class="ico"></i></span><strong>dias inesquecíveis</strong><p>e gente boa pra dividir tudo.</p></article>
+      </div>
+      <div class="finale-actions">
+        <button class="finale-spark" id="finaleSpark" type="button">soltar mais estrelas <span><i data-lucide="sparkles" class="ico"></i></span></button>
+        <button class="finale-exit" id="finaleExit">guardar esse carinho <span><i data-lucide="download" class="ico"></i></span></button>
+      </div>
+      <p class="finale-footnote">com carinho, hoje e sempre <i data-lucide="sparkle" class="ico"></i></p>
+    </div>
+    <div class="finale-goodbye" id="finaleGoodbye" aria-hidden="true">
+      <p class="finale-goodbye-text">Aproveite o dia <span>:)</span></p>
+    </div>
+  </div>
+  <script src="script.js"></script>
+  <script src="video-messages.js"></script>
+  <script src="video-viewer.js"></script>
+  <script src="video-surprises.js"></script>
+  <script defer src="pro-motion.js"></script>
+  <script defer src="finale-scene.js"></script>
+</body>
+</html>
